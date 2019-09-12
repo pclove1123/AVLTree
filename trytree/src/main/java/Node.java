@@ -3,49 +3,49 @@ public class Node {
     Node left;
     Node right;
 
-    public Node(int value){
+    public Node(int value) {
         this.value = value;
     }
 
-    public int height(){
-        return Math.max(left == null?0:left.height(),right == null?0:right.height())+1;
+    public int height() {
+        return Math.max(left == null ? 0 : left.height(), right == null ? 0 : right.height()) + 1;
     }
 
-    public void add(Node node){
-        if(node == null){
+    public void add(Node node) {
+        if (node == null) {
             return;
         }
-        if(node.value < this.value){
-            if(this.left == null){
+        if (node.value < this.value) {
+            if (this.left == null) {
                 this.left = node;
-            }else {
+            } else {
                 this.left.add(node);
             }
-        }else {
-            if(this.right == null){
+        } else {
+            if (this.right == null) {
                 this.right = node;
-            }else {
+            } else {
                 this.right.add(node);
             }
         }
-        if(leftHeight()-rightHeight()>=2){
+        if (leftHeight() - rightHeight() >= 2) {
             //双旋转
             //如果左子树左边的高度小于左子树右边的高度
-            if(left!= null && left.leftHeight()<left.rightHeight()){
+            if (left != null && left.leftHeight() < left.rightHeight()) {
                 left.leftRotate();
                 rightRotate();
                 //但旋转
-            }else {
+            } else {
                 rightRotate();
             }
 
             //
         }
-        if(leftHeight()-rightHeight()<=-2){
-            if(right != null && right.rightHeight() < right.leftHeight()){
+        if (leftHeight() - rightHeight() <= -2) {
+            if (right != null && right.rightHeight() < right.leftHeight()) {
                 right.rightRotate();
                 leftRotate();
-            }else {
+            } else {
                 leftRotate();
             }
 
@@ -53,7 +53,7 @@ public class Node {
 
     }
 
-    private void rightRotate(){
+    private void rightRotate() {
         Node node = new Node(value);
         node.right = this.right;
         node.left = this.left.right;
@@ -61,7 +61,8 @@ public class Node {
         this.left = this.left.left;
         this.right = node;
     }
-    private void leftRotate(){
+
+    private void leftRotate() {
         Node node = new Node(value);
         node.left = this.left;
         node.right = this.right.left;
@@ -71,15 +72,15 @@ public class Node {
     }
 
 
-    public int leftHeight(){
-        if(left == null){
+    public int leftHeight() {
+        if (left == null) {
             return 0;
         }
         return left.height();
     }
 
-    public int rightHeight(){
-        if(right == null){
+    public int rightHeight() {
+        if (right == null) {
             return 0;
         }
         return right.height();
